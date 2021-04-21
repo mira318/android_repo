@@ -1,1 +1,1 @@
-# android_repo
+Проект по мини-курсу Android
