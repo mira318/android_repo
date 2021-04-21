@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">git_repo_app</string>
+    <string name="ok">thanks for permission</string>
+    <string name="refresh"> tap to refres list</string>
+</resources>
