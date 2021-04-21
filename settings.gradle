@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "git_repo_app"
