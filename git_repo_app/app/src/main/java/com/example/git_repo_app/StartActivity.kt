@@ -23,36 +23,36 @@ class StartActivity: Activity() {
         val languageButtonList = listOf<Button>(kotlinButton, javaButton, cplusplusButton,
                 rButton, pythonButton)
         var chosenLanguage = LanguageEnum.Null
-
+        activateChooseButtons(languageButtonList)
 
         kotlinButton.setOnClickListener{
             activateChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.kotlin
-            kotlinButton.isActivated = false
+            kotlinButton.isPressed = false
         }
 
         pythonButton.setOnClickListener{
             activateChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.python
-            pythonButton.isActivated = false
+            pythonButton.isPressed = false
         }
 
         javaButton.setOnClickListener{
             activateChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.java
-            javaButton.isActivated = false
+            javaButton.isPressed = false
         }
 
         rButton.setOnClickListener{
             activateChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.R
-            rButton.isActivated = false
+            rButton.isPressed = false
         }
 
         cplusplusButton.setOnClickListener{
             activateChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.Cplusplus
-            cplusplusButton.isActivated = false
+            cplusplusButton.isPressed = false
         }
 
 
@@ -64,7 +64,7 @@ class StartActivity: Activity() {
 
     private fun activateChooseButtons(buttonsList: List<Button>){
         for(button in buttonsList) {
-            button.isActivated = true
+            button.isPressed = true
         }
     }
 

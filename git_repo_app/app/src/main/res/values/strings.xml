@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">git_repo_app</string>
     <string name="ok">thanks for permission</string>
-    <string name="refresh"> tap to refres list</string>
+    <string name="refresh"> tap to refresh list</string>
     <string name="hint_search_string">what world should be in repo?</string>
     <string name="button_search">press to search git</string>
+    <string name="language_choice">choose repo language</string>
+    <string name="string">choose repo language</string>
 </resources>
