@@ -1,5 +1,7 @@
 package com.example.git_repo_app
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +16,7 @@ import com.squareup.picasso.Picasso
 class RepoAdapter(private val repos: Repos): RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bindRepo(repo: Item) {
+        fun addRepo(repo: Item) {
             val repoName = view.findViewById<TextView>(R.id.repoName)
             repoName.text = repo.name
 
@@ -28,6 +30,11 @@ class RepoAdapter(private val repos: Repos): RecyclerView.Adapter<RepoAdapter.Vi
             Picasso.get()
                 .load(repo.owner.avatar_url)
                 .into(icon)
+
+            view.setOnClickListener{
+                val browserIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(repo.html_url))
+                view.context.startActivity(browserIntent)
+            }
         }
     }
 
@@ -39,7 +46,7 @@ class RepoAdapter(private val repos: Repos): RecyclerView.Adapter<RepoAdapter.Vi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, index: Int) {
-        holder.bindRepo(repos.items[index])
+        holder.addRepo(repos.items[index])
     }
 
 }

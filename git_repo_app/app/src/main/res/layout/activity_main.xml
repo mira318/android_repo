@@ -10,10 +10,10 @@
 
    <Button
        android:id="@+id/refreshButton"
-       android:layout_width="80dp"
-       android:layout_height="80dp"
+       android:layout_width="70dp"
+       android:layout_height="70dp"
        android:layout_gravity="bottom"
-       android:shape="oval"
+       android:background="@drawable/round_button"
        android:text="@string/refresh"
        android:textSize="15sp" />
 </FrameLayout>

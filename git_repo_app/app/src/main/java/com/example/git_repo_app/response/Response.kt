@@ -7,8 +7,7 @@ data class Item(
         val name: String?,
         val fullName: String?,
         val owner: Owner,
-        val private: Boolean,
-        val description: String?,
-        val htm_url: String?)
+        val html_url: String?,
+        val description: String?)
 
 data class Owner(val login: String?, val id: Long?, val avatar_url:String?)

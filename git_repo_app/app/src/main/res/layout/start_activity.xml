@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:layout_height="match_parent"
+            android:id="@+id/kotlin_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="Kotlin"
+            android:color="@color/mint"
+            />
+        <Button
+            android:layout_height="match_parent"
+            android:id="@+id/python_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="python"
+            />
+        <Button
+
+            android:layout_height="match_parent"
+            android:id="@+id/cplusplus_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="C++"
+            />
+        <Button
+
+            android:layout_height="match_parent"
+            android:id="@+id/java_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="Java"
+            />
+        <Button
+            android:layout_height="match_parent"
+            android:id="@+id/R_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="R"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_search_string" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/button_search" />
+</LinearLayout>
