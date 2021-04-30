@@ -86,14 +86,12 @@ class MainActivity : Activity() {
 
     private fun getUrlString(user_request: String?, user_language: String?): String {
         var languageStr = user_language
-        println("user_language=$user_language")
         if(user_language == "Null") {
             languageStr=""
         }
         if(user_language == "Cplusplus") {
             languageStr="C++"
         }
-
         var addWords = ""
         val baseString = "https://api.github.com/search/repositories?q="
         val endString = "+language:${languageStr}&sort=stars&order=desc&per_page=100"
@@ -115,8 +113,6 @@ class MainActivity : Activity() {
             }
         }
         urlString = "$baseString$addWords$endString"
-        println("urlString=$urlString")
-
         return urlString
     }
 }
