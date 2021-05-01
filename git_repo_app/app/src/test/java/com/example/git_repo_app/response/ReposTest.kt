@@ -26,5 +26,6 @@ class ReposTest {
         assert(repos.items[0]== item1)
         assert(repos.items[1].owner.id == 789.toLong())
         assert(repos.items[2].description == "den's repo description")
+        assert(repos.items.get(1).description == "oleg's repo description")
     }
 }
