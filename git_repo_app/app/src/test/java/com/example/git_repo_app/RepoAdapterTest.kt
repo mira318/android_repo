@@ -56,4 +56,16 @@ class RepoAdapterTest {
         adapter = RepoAdapter(Repos(bigList))
         assert(adapter.itemCount == 10000)
     }
+
+
+    /*@Test
+  fun onCreateOtherViews() {
+
+      onView(withId(R.id.edit_search)).check(matches(withHint(R.string.hint_search_string)))
+      onView(withId(R.id.edit_search)).perform(typeText("star&!+?***top&**&???"))
+      onView(withId(R.id.edit_search)).check(matches(withText("star&!+?***top&**&???")))
+      onView(withId(R.id.btn_search)).check(matches(isClickable()))
+      //onView(withId(R.id.btn_search)).perform(click())
+      //onView(withId(R.id.repoList)).check(matches(isDisplayed()))
+  }*/
 }

@@ -23,48 +23,48 @@ class StartActivity: Activity() {
         val languageButtonList = listOf<Button>(kotlinButton, javaButton, cplusplusButton,
                 rButton, pythonButton)
         var chosenLanguage = LanguageEnum.Null
-        activateChooseButtons(languageButtonList)
+        enableChooseButtons(languageButtonList)
 
         kotlinButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.kotlin
-            kotlinButton.isPressed = false
+            kotlinButton.isEnabled = false
         }
 
         pythonButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.python
-            pythonButton.isPressed = false
+            pythonButton.isEnabled = false
         }
 
         javaButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.java
-            javaButton.isPressed = false
+            javaButton.isEnabled= false
         }
 
         rButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.R
-            rButton.isPressed = false
+            rButton.isEnabled = false
         }
 
         cplusplusButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             chosenLanguage = LanguageEnum.Cplusplus
-            cplusplusButton.isPressed = false
+            cplusplusButton.isEnabled = false
         }
 
 
         searchButton.setOnClickListener{
-            activateChooseButtons(languageButtonList)
+            enableChooseButtons(languageButtonList)
             switchToMainActivity(searchWindow.text.toString(), chosenLanguage)
         }
     }
 
-    private fun activateChooseButtons(buttonsList: List<Button>){
+    private fun enableChooseButtons(buttonsList: List<Button>){
         for(button in buttonsList) {
-            button.isPressed = true
+            button.isEnabled = true
         }
     }
 
