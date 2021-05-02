@@ -144,7 +144,6 @@ class MainActivity : Activity() {
                     " ", "?", ",", "\t", "\n", "!", ".", "\"", ";", ":", "+", "'", "*", "&")
             for(str in addingString) {
                 str.replace(",\\|!|/|?|\t|\n|;|\"|:|+|'|*|&", "")
-                println("str=$str")
                 if(str.isNotEmpty()){
                     if(addWords.isEmpty()){
                         addWords = str
