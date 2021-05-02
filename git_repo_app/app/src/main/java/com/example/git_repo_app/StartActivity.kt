@@ -69,7 +69,6 @@ class StartActivity: Activity() {
     }
 
     private fun switchToMainActivity(searchString: String, chosenLanguage: LanguageEnum){
-        println("chosenLanguage=${chosenLanguage.toString()}")
         val switchActivityIntent = Intent(this@StartActivity,
                 MainActivity::class.java)
         switchActivityIntent

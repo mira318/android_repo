@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,36 +18,54 @@ import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.File
 
 
 class MainActivity : Activity() {
 
     lateinit var repoList: RecyclerView
+    var haveStorage = false
+    var was = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            was = savedInstanceState.getBoolean("was")
+            haveStorage = savedInstanceState.getBoolean("haveStorage")
+        }
         setContentView(R.layout.activity_main)
-        val bundle = intent.extras
         repoList = findViewById(R.id.repoList)
         repoList.layoutManager = LinearLayoutManager(this)
         val refreshButton = findViewById<Button>(R.id.refreshButton)
-
-        if(checkConnection(MyApp.instance.getAppContext())) {
-            val user_request = bundle?.getString("user_request")
-            val user_language = bundle?.getString("language_chosen")
-            println("user_language=$user_language")
-            requestRepos(user_request, user_language)
-            refreshButton.setOnClickListener {
-                requestRepos(user_request, user_language)
-            }
-            refreshButton.isActivated=true
+        if(was && haveStorage) {
+            readResultListFromFile()
         } else {
-            AlertDialog.Builder(this).setTitle("No Internet Connection")
-                    .setMessage("Please check your internet connection")
-                    .setPositiveButton(android.R.string.ok){_, _ ->}
-                    .setIcon(android.R.drawable.ic_dialog_alert).show()
-            refreshButton.isEnabled=true
+            if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+                haveStorage = true
+            }
+            val bundle = intent.extras
+            if(checkConnection(MyApp.instance.getAppContext())) {
+                val user_request = bundle?.getString("user_request")
+                val user_language = bundle?.getString("language_chosen")
+                requestRepos(user_request, user_language)
+                refreshButton.setOnClickListener {
+                    requestRepos(user_request, user_language)
+                }
+                refreshButton.isEnabled=true
+            } else {
+                AlertDialog.Builder(this).setTitle(R.string.no_internet)
+                        .setMessage(R.string.no_internet_hint)
+                        .setPositiveButton(R.string.ok){_, _ ->}
+                        .setIcon(android.R.drawable.ic_dialog_alert).show()
+                refreshButton.isEnabled=false
+            }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("was", was)
+        outState.putBoolean("haveStorage", haveStorage)
     }
 
     private fun checkConnection(context: Context): Boolean {
@@ -62,9 +81,9 @@ class MainActivity : Activity() {
     private fun requestRepos(user_request: String?, user_language: String?) {
         val errorHandler = CoroutineExceptionHandler { _, exception ->
             AlertDialog.Builder(this)
-                    .setTitle("Error")
+                    .setTitle(R.string.error)
                     .setMessage(exception.message)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->}
+                    .setPositiveButton(R.string.ok) { _, _ ->}
                     .setIcon(android.R.drawable.ic_dialog_alert).show()
         }
 
@@ -79,6 +98,29 @@ class MainActivity : Activity() {
 
                 val response = client.newCall(request).execute()
                 resultList = Gson().fromJson(response.body()?.string(), Repos::class.java)
+                if(haveStorage) {
+                    writeToFile(resultList)
+                }
+            }
+            repoList.adapter = RepoAdapter(resultList)
+            was = true
+        }
+    }
+
+    private fun writeToFile(resultList: Repos) {
+        val appFile = File(MyApp.instance.getAppContext().getExternalFilesDir(null),
+                "git_repo_app_tmp")
+        appFile.writeText(Gson().toJson(resultList))
+    }
+
+    private fun readResultListFromFile() {
+        val appFile = File(MyApp.instance.getAppContext().getExternalFilesDir(null),
+                "git_repo_app_tmp")
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        var resultList: Repos
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                resultList = Gson().fromJson(appFile.readText(), Repos::class.java)
             }
             repoList.adapter = RepoAdapter(resultList)
         }

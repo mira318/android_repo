@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">git_repo_app</string>
-    <string name="ok">thanks for permission</string>
+    <string name="ok">ok</string>
     <string name="refresh"> tap to refresh list</string>
     <string name="hint_search_string">what world should be in repo?</string>
     <string name="button_search">press to search git</string>
     <string name="language_choice">choose repo language</string>
     <string name="string">choose repo language</string>
+    <string name="no_internet">No Internet connection</string>
+    <string name="no_internet_hint"> Please check your internet connection</string>
+    <string name="error">Error when search through Internet, try to refresh page</string>
 </resources>
