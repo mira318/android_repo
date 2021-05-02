@@ -19,6 +19,7 @@ import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
+import java.io.IOException
 
 
 class MainActivity : Activity() {
@@ -37,16 +38,21 @@ class MainActivity : Activity() {
         repoList = findViewById(R.id.repoList)
         repoList.layoutManager = LinearLayoutManager(this)
         val refreshButton = findViewById<Button>(R.id.refreshButton)
+        val bundle = intent.extras
+        val user_request = bundle?.getString("user_request")
+        val user_language = bundle?.getString("language_chosen")
+
         if(was && haveStorage) {
-            readResultListFromFile()
+            try {
+                readResultListFromFile()
+            } catch(e: IOException) {
+                requestRepos(user_request, user_language)
+            }
         } else {
             if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
                 haveStorage = true
             }
-            val bundle = intent.extras
             if(checkConnection(MyApp.instance.getAppContext())) {
-                val user_request = bundle?.getString("user_request")
-                val user_language = bundle?.getString("language_chosen")
                 requestRepos(user_request, user_language)
                 refreshButton.setOnClickListener {
                     requestRepos(user_request, user_language)
@@ -99,7 +105,9 @@ class MainActivity : Activity() {
                 val response = client.newCall(request).execute()
                 resultList = Gson().fromJson(response.body()?.string(), Repos::class.java)
                 if(haveStorage) {
-                    writeToFile(resultList)
+                    try{
+                        writeToFile(resultList)
+                    } catch(e: IOException) { }
                 }
             }
             repoList.adapter = RepoAdapter(resultList)
